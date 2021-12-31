@@ -17,11 +17,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Setup Java 17
+      - name: Setup Java 15
         uses: actions/setup-java@v2.5.0
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '15'
       - name: Setup Flutter SDK
         uses: subosito/flutter-action@v1.5.3
       - name: Get Flutter dependencies
@@ -37,11 +37,11 @@ jobs:
     runs-on: macos-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Setup Java 11
+      - name: Setup Java 15
         uses: actions/setup-java@v2.5.0
         with:
           distribution: 'temurin'
-          java-version: '11'
+          java-version: '15'
       - name: Setup Flutter SDK
         uses: subosito/flutter-action@v1.5.3
       - name: Get Flutter dependencies
@@ -57,11 +57,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Setup Java 17
+      - name: Setup Java 15
         uses: actions/setup-java@v2.5.0
         with:
           distribution: 'temurin'
-          java-version: '17'
+          java-version: '15'
       - name: Setup Flutter SDK
         uses: subosito/flutter-action@v1.5.3
       - name: Get Flutter dependencies
