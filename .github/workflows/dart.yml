@@ -25,7 +25,7 @@ jobs:
       - name: Setup Flutter SDK
         uses: subosito/flutter-action@v1.5.3
       - name: Get Flutter dependencies
-        run: flutter pug get
+        run: flutter pub get
       - name: Analyze Flutter project
         run: flutter analyze
       - name: Run Flutter tests
@@ -45,7 +45,7 @@ jobs:
       - name: Setup Flutter SDK
         uses: subosito/flutter-action@v1.5.3
       - name: Get Flutter dependencies
-        run: flutter pug get
+        run: flutter pub get
       - name: Clean Flutter project
         run: flutter clean
       - name: Build Flutter app without code sign
@@ -65,7 +65,7 @@ jobs:
       - name: Setup Flutter SDK
         uses: subosito/flutter-action@v1.5.3
       - name: Get Flutter dependencies
-        run: flutter pug get
+        run: flutter pub get
       - name: Clean Flutter project
         run: flutter clean
       - name: Build Flutter app bundle
