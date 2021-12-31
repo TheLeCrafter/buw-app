@@ -132,12 +132,7 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Image.network(
-                  _post.imageUrl,
-                  width: MediaQuery.of(context).size.width,
-                  height: MediaQuery.of(context).size.height * 0.28,
-                  fit: BoxFit.cover,
-                )
+                _getDetailedImage(_post)
               ],
             ),
           ),
@@ -160,6 +155,15 @@ class _HomeScreenState extends State<HomeScreen> {
           )
         ],
       ),
+    );
+  }
+
+  Widget _getDetailedImage(Post _post) {
+    return Image.network(
+      _post.imageUrl,
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height * 0.28,
+      fit: BoxFit.cover,
     );
   }
 }
