@@ -61,10 +61,10 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             );
           } else {
-            return const Center(
+            return Center(
               child: Text(
-                  "There was an error parsing the main widget!",
-                style: TextStyle(
+                  "Es gab einen Fehler beim Herunterladen der Daten!\nStatus Code: ${snapshot.data!.statusCode}",
+                style: const TextStyle(
                   fontSize: 30,
                   fontFamily: "Titillium",
                   color: Colors.white
@@ -73,7 +73,7 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           }
         } else if (snapshot.hasError) {
-          return Text("There was an error parsing the main widget! (${snapshot.error})");
+          return Text("Es gab einen Fehler beim Herunterladen der Daten\nBitte melden Sie diesen Fehler: (${snapshot.error}");
         }
         return const Center(
           child: CircularProgressIndicator(),
