@@ -60,14 +60,31 @@ class _HomeScreenState extends State<HomeScreen> {
                 return _buildRow(_posts[i ~/ 2]);
               },
             );
+          } else if(snapshot.data!.statusCode == 429) {
+            return Center(
+              child: Container(
+                margin: const EdgeInsets.all(20),
+                child: const Text(
+                  "Der Server hat zu viele Anfragen von diesem Gerät aus bearbeitet. Bitte starten Sie die App in wenigen Minuten neu.",
+                  style: TextStyle(
+                      fontSize: 24,
+                      fontFamily: "Titillium",
+                      color: Colors.white
+                  ),
+                ),
+              ),
+            );
           } else {
             return Center(
-              child: Text(
+              child: Container(
+                margin: const EdgeInsets.all(20),
+                child: Text(
                   "Es gab einen Fehler beim Herunterladen der Daten!\nStatus Code: ${snapshot.data!.statusCode}",
-                style: const TextStyle(
-                  fontSize: 30,
-                  fontFamily: "Titillium",
-                  color: Colors.white
+                  style: const TextStyle(
+                      fontSize: 24,
+                      fontFamily: "Titillium",
+                      color: Colors.white
+                  ),
                 ),
               ),
             );
