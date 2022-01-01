@@ -52,28 +52,29 @@ class _HomeScreenState extends State<HomeScreen> {
       future: fetchData(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          if (snapshot.data!.statusCode == 200) {
-            final json = jsonDecode(snapshot.data!.body);
-            if (json != null) {
-              json.forEach((element) {
-                final post = Post.fromJson(element);
-                _posts.add(post);
-              });
+          switch (snapshot.data!.statusCode) {
+            case 200: {
+              final json = jsonDecode(snapshot.data!.body);
+              if (json != null) {
+                json.forEach((element) {
+                  final post = Post.fromJson(element);
+                  _posts.add(post);
+                });
+              }
+              return ListView.builder(
+                padding: const EdgeInsets.all(16),
+                itemCount: _posts.length,
+                itemBuilder: (context, i) {
+                  if (i.isOdd) {
+                    return const Divider();
+                  }
+                  return _buildRow(_posts[i ~/ 2]);
+                },
+              );
             }
-            return ListView.builder(
-              padding: const EdgeInsets.all(16),
-              itemCount: _posts.length,
-              itemBuilder: (context, i) {
-                if (i.isOdd) {
-                  return const Divider();
-                }
-                return _buildRow(_posts[i ~/ 2]);
-              },
-            );
-          } else if(snapshot.data!.statusCode == 429) {
-            return _getErrorTextWidget("Der Server hat zu viele Anfragen von diesem Gerät aus bearbeitet. Bitte starten Sie die App in wenigen Minuten neu.", MediaQuery.of(context).size.width * 0.08);
-          } else {
-            return _getErrorTextWidget("Es gab einen Fehler beim Herunterladen der Daten!\nStatus Code: ${snapshot.data!.statusCode}", MediaQuery.of(context).size.width * 0.08);
+            case 429: return _getErrorTextWidget("Der Server hat zu viele Anfragen von diesem Gerät aus bearbeitet. Bitte starten Sie die App in wenigen Minuten neu.", MediaQuery.of(context).size.width * 0.08);
+            case 500: return _getErrorTextWidget("Es gab einen internen Server Fehler. Bitte versuchen Sie es in ein paar Minuten erneut.", MediaQuery.of(context).size.width * 0.08);
+            default: return _getErrorTextWidget("Es gab einen Fehler beim Herunterladen der Daten!\nStatus Code: ${snapshot.data!.statusCode}", MediaQuery.of(context).size.width * 0.08);
           }
         } else if (snapshot.hasError) {
           return _getErrorTextWidget("Es gab einen Fehler beim Herunterladen der Daten\nBitte melden Sie diesen Fehler: (${snapshot.error})", MediaQuery.of(context).size.width * 0.08);
