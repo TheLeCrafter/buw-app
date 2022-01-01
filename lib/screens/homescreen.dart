@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bundesumweltwettbewerbapp/networking.dart';
 import 'package:bundesumweltwettbewerbapp/post.dart';
 
@@ -20,16 +21,25 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.white38,
-      appBar: AppBar(
-        backgroundColor: Colors.black54,
-        centerTitle: true,
-        title: const Text(
-            "Tipps und Tricks zur Vermeidung von Plastik",
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 19,
-              fontFamily: "Titillium",
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.065),
+        child: AppBar(
+          backgroundColor: Colors.black54,
+          centerTitle: true,
+          title: PreferredSize(
+            preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.1),
+            child: const AutoSizeText(
+              "Tipps und Tricks zur Vermeidung von Plastik",
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 100,
+                fontFamily: "Titillium",
+              ),
+              maxLines: 1,
+              maxFontSize: 100,
             ),
+          ),
+          automaticallyImplyLeading: false,
         ),
       ),
       body: mainWidget(),
@@ -61,36 +71,12 @@ class _HomeScreenState extends State<HomeScreen> {
               },
             );
           } else if(snapshot.data!.statusCode == 429) {
-            return Center(
-              child: Container(
-                margin: const EdgeInsets.all(20),
-                child: const Text(
-                  "Der Server hat zu viele Anfragen von diesem Gerät aus bearbeitet. Bitte starten Sie die App in wenigen Minuten neu.",
-                  style: TextStyle(
-                      fontSize: 24,
-                      fontFamily: "Titillium",
-                      color: Colors.white
-                  ),
-                ),
-              ),
-            );
+            return _getErrorTextWidget("Der Server hat zu viele Anfragen von diesem Gerät aus bearbeitet. Bitte starten Sie die App in wenigen Minuten neu.", MediaQuery.of(context).size.width * 0.08);
           } else {
-            return Center(
-              child: Container(
-                margin: const EdgeInsets.all(20),
-                child: Text(
-                  "Es gab einen Fehler beim Herunterladen der Daten!\nStatus Code: ${snapshot.data!.statusCode}",
-                  style: const TextStyle(
-                      fontSize: 24,
-                      fontFamily: "Titillium",
-                      color: Colors.white
-                  ),
-                ),
-              ),
-            );
+            return _getErrorTextWidget("Es gab einen Fehler beim Herunterladen der Daten!\nStatus Code: ${snapshot.data!.statusCode}", MediaQuery.of(context).size.width * 0.08);
           }
         } else if (snapshot.hasError) {
-          return Text("Es gab einen Fehler beim Herunterladen der Daten\nBitte melden Sie diesen Fehler: (${snapshot.error})");
+          return _getErrorTextWidget("Es gab einen Fehler beim Herunterladen der Daten\nBitte melden Sie diesen Fehler: (${snapshot.error})", MediaQuery.of(context).size.width * 0.08);
         }
         return const Center(
           child: CircularProgressIndicator(),
@@ -102,14 +88,16 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget _buildRow(Post _post) {
     return ListTile(
       title: Center(
-        child: Text(
+        child: AutoSizeText(
           _post.title,
           style: const TextStyle(
-              fontSize: 20,
+              fontSize: 100,
               fontFamily: "Titillium",
               color: Colors.white
           ),
-        ),
+          maxLines: 1,
+          maxFontSize: 100,
+        )
       ),
       onTap: () {
         _pushDetail(_post);
@@ -128,16 +116,20 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget detailedWidget(Post _post) {
     return Scaffold(
       backgroundColor: Colors.white38,
-      appBar: AppBar(
-        backgroundColor: Colors.black54,
-        centerTitle: true,
-        title: Text(
-          _post.title,
-          style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 15,
-              fontFamily: "Titillium",
-              color: Colors.white
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(MediaQuery.of(context).size.height * 0.065),
+        child: AppBar(
+          backgroundColor: Colors.black54,
+          centerTitle: true,
+          title: AutoSizeText(
+            _post.title,
+            style: const TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: 100,
+                fontFamily: "Titillium",
+                color: Colors.white
+            ),
+            maxLines: 1,
           ),
         ),
       ),
@@ -157,12 +149,12 @@ class _HomeScreenState extends State<HomeScreen> {
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
               child: Container(
-                margin: const EdgeInsets.all(15),
+                margin: EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.05, right: MediaQuery.of(context).size.width * 0.05, top: 20),
                 child: Text(
                   _post.text,
                   style: const TextStyle(
                       fontWeight: FontWeight.bold,
-                      fontSize: 15,
+                      fontSize: 30,
                       fontFamily: "Titillium",
                       color: Colors.white
                   ),
@@ -181,6 +173,23 @@ class _HomeScreenState extends State<HomeScreen> {
       width: MediaQuery.of(context).size.width,
       height: MediaQuery.of(context).size.height * 0.28,
       fit: BoxFit.cover,
+    );
+  }
+
+  Widget _getErrorTextWidget(String _text, double _margin) {
+    return Center(
+      child: Container(
+        margin: EdgeInsets.all(_margin),
+        child: AutoSizeText(
+          _text,
+          style: const TextStyle(
+              fontSize: 100,
+              fontFamily: "Titillium",
+              color: Colors.red
+          ),
+          maxLines: 5,
+        ),
+      ),
     );
   }
 }
