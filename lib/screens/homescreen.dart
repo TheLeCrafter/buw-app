@@ -90,7 +90,7 @@ class _HomeScreenState extends State<HomeScreen> {
             );
           }
         } else if (snapshot.hasError) {
-          return Text("Es gab einen Fehler beim Herunterladen der Daten\nBitte melden Sie diesen Fehler: (${snapshot.error}");
+          return Text("Es gab einen Fehler beim Herunterladen der Daten\nBitte melden Sie diesen Fehler: (${snapshot.error})");
         }
         return const Center(
           child: CircularProgressIndicator(),
