@@ -154,8 +154,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Text(
                   _post.text,
                   style: const TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 30,
+                      fontSize: 28,
+                      height: 1.1,
                       fontFamily: "Titillium",
                       color: Colors.white
                   ),
