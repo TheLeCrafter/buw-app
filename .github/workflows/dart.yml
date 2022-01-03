@@ -50,6 +50,11 @@ jobs:
         run: flutter clean
       - name: Build Flutter app without code sign
         run: flutter build ios --no-codesign
+      - name: Upload iOS app
+        uses: actions/upload-artifact@v2.3.1
+        with: 
+          name: iOS
+          path: build/ios/iphoneos/*.app
   
   build_appbundle:
     name: Build Flutter (Android)
@@ -70,3 +75,8 @@ jobs:
         run: flutter clean
       - name: Build Flutter app bundle
         run: flutter build appbundle
+      - name: Upload android app
+        uses: actions/upload-artifact@v2.3.1
+        with:
+          name: Android
+          path: build/app/outputs/bundle/release/*.aab
