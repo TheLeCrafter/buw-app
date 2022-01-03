@@ -1,8 +1,9 @@
-import 'dart:convert';
+import 'dart:async';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bundesumweltwettbewerbapp/networking.dart';
 import 'package:bundesumweltwettbewerbapp/post.dart';
+import 'package:connectivity_plus/connectivity_plus.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -12,10 +13,10 @@ class HomeScreen extends StatefulWidget {
 
 
   @override
-  State<StatefulWidget> createState() => _HomeScreenState();
+  State<StatefulWidget> createState() => HomeScreenState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
@@ -42,25 +43,18 @@ class _HomeScreenState extends State<HomeScreen> {
           automaticallyImplyLeading: false,
         ),
       ),
-      body: mainWidget(),
+      body: connectivityWidget(),
     );
   }
 
   Widget mainWidget() {
-    final _posts = <Post>[];
     return FutureBuilder<http.Response>(
       future: fetchData(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
           switch (snapshot.data!.statusCode) {
             case 200: {
-              final json = jsonDecode(snapshot.data!.body);
-              if (json != null) {
-                json.forEach((element) {
-                  final post = Post.fromJson(element);
-                  _posts.add(post);
-                });
-              }
+              final _posts = getPostsFromSnapshot(snapshot);
               return ListView.builder(
                 padding: const EdgeInsets.all(16),
                 itemCount: _posts.length,
@@ -72,12 +66,12 @@ class _HomeScreenState extends State<HomeScreen> {
                 },
               );
             }
-            case 429: return _getErrorTextWidget("Der Server hat zu viele Anfragen von diesem Gerät aus bearbeitet. Bitte starten Sie die App in wenigen Minuten neu.", MediaQuery.of(context).size.width * 0.08);
-            case 500: return _getErrorTextWidget("Es gab einen internen Server Fehler. Bitte versuchen Sie es in ein paar Minuten erneut.", MediaQuery.of(context).size.width * 0.08);
-            default: return _getErrorTextWidget("Es gab einen Fehler beim Herunterladen der Daten!\nStatus Code: ${snapshot.data!.statusCode}", MediaQuery.of(context).size.width * 0.08);
+            case 429: return getErrorTextWidget("Der Server hat zu viele Anfragen von diesem Gerät aus bearbeitet. Bitte starten Sie die App in wenigen Minuten neu.", MediaQuery.of(context).size.width * 0.08);
+            case 500: return getErrorTextWidget("Es gab einen internen Server Fehler. Bitte versuchen Sie es in ein paar Minuten erneut.", MediaQuery.of(context).size.width * 0.08);
+            default: return getErrorTextWidget("Es gab einen Fehler beim Herunterladen der Daten!\nStatus Code: ${snapshot.data!.statusCode}", MediaQuery.of(context).size.width * 0.08);
           }
         } else if (snapshot.hasError) {
-          return _getErrorTextWidget("Es gab einen Fehler beim Herunterladen der Daten\nBitte melden Sie diesen Fehler: (${snapshot.error})", MediaQuery.of(context).size.width * 0.08);
+          return getErrorTextWidget("Es gab einen Fehler beim Herunterladen der Daten\nBitte melden Sie diesen Fehler: (${snapshot.error})", MediaQuery.of(context).size.width * 0.08);
         }
         return const Center(
           child: CircularProgressIndicator(),
@@ -176,21 +170,21 @@ class _HomeScreenState extends State<HomeScreen> {
       fit: BoxFit.cover,
     );
   }
+}
 
-  Widget _getErrorTextWidget(String _text, double _margin) {
-    return Center(
-      child: Container(
-        margin: EdgeInsets.all(_margin),
-        child: AutoSizeText(
-          _text,
-          style: const TextStyle(
-              fontSize: 100,
-              fontFamily: "Titillium",
-              color: Colors.red
-          ),
-          maxLines: 7,
+Widget getErrorTextWidget(String _text, double _margin) {
+  return Center(
+    child: Container(
+      margin: EdgeInsets.all(_margin),
+      child: AutoSizeText(
+        _text,
+        style: const TextStyle(
+            fontSize: 100,
+            fontFamily: "Titillium",
+            color: Colors.red
         ),
+        maxLines: 7,
       ),
-    );
-  }
+    ),
+  );
 }
