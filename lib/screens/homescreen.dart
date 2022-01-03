@@ -188,7 +188,7 @@ class _HomeScreenState extends State<HomeScreen> {
               fontFamily: "Titillium",
               color: Colors.red
           ),
-          maxLines: 5,
+          maxLines: 7,
         ),
       ),
     );

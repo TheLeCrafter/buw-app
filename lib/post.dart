@@ -6,6 +6,12 @@ class Post {
   Post({required this.title, required this.imageUrl, required this.text});
 
   factory Post.fromJson(Map<String, dynamic> json) {
-    return Post(title: json["title"], imageUrl: json["thumbnail_url"], text: json["text"]);
+    String _title = json["title"];
+    _title = _title.replaceAll("\$", "");
+    String _imageUrl = json["thumbnail_url"];
+    _imageUrl = _imageUrl.replaceAll("\$", "");
+    String _text = json["text"];
+    _text = _text.replaceAll("\$", "");
+    return Post(title: _title, imageUrl: _imageUrl, text: _text);
   }
 }
