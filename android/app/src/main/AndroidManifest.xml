@@ -2,7 +2,7 @@
     package="dev.thelecrafter.bundesumweltwettbewerbapp">
     <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="bundesumweltwettbewerbapp"
+        android:label="Plastik vermeiden Ratgeber"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
