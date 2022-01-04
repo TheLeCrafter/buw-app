@@ -15,3 +15,6 @@ Run ``flutter build ios --no-codesign``. The built file is found at <project_hom
 
 ### For Android
 Run ``flutter build appbundle``. The built file is found at <project_home>/build/app/outputs/bundle/release/app-release.aab
+
+### Supported version
+You can find the supported versions in the [SECURITY.md](https://github.com/TheLeCrafter/buw-app/blob/master/SECURITY.md)
