@@ -1,9 +1,6 @@
-import 'dart:async';
-
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:bundesumweltwettbewerbapp/networking.dart';
 import 'package:bundesumweltwettbewerbapp/post.dart';
-import 'package:connectivity_plus/connectivity_plus.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -43,7 +40,7 @@ class HomeScreenState extends State<HomeScreen> {
           automaticallyImplyLeading: false,
         ),
       ),
-      body: connectivityWidget(),
+      body: mainWidget(),
     );
   }
 
@@ -71,7 +68,7 @@ class HomeScreenState extends State<HomeScreen> {
             default: return getErrorTextWidget("Es gab einen Fehler beim Herunterladen der Daten!\nStatus Code: ${snapshot.data!.statusCode}", MediaQuery.of(context).size.width * 0.08);
           }
         } else if (snapshot.hasError) {
-          return getErrorTextWidget("Es gab einen Fehler beim Herunterladen der Daten\nBitte melden Sie diesen Fehler: (${snapshot.error})", MediaQuery.of(context).size.width * 0.08);
+          return getErrorTextWidget("Es gab einen Fehler beim Herunterladen der Daten\nDies könnte an einer fehlenden Internetverbindung liegen.", MediaQuery.of(context).size.width * 0.08);
         }
         return const Center(
           child: CircularProgressIndicator(),
