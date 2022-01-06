@@ -19,3 +19,6 @@ Run ``flutter build appbundle``. The built file is found at <project_home>/build
 ### For Android [APK]
 Run ``flutter build apk``. The built file is found at <project_home>/build/app/outputs/apk/release/app-release.apk
 
+
+### Supported version
+You can find the supported versions in the [SECURITY.md](https://github.com/TheLeCrafter/buw-app/blob/master/SECURITY.md)
