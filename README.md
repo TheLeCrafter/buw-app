@@ -8,10 +8,14 @@ Bundesumweltwettbewerb APP by TheLeCrafter
 This is a German app made by TheLeCrafter for the Bundesumweltwettbewerb to show ways on how to prevent the use of plastic.
 
 ## Building
-Install the latest Dart and Flutter version and clone this repository.
+Install the latest Dart and Flutter version and clone this repository. If you want to disable hot reload on the connected device add the ``--release`` flag to the command.
 
 ### For iOS
 Run ``flutter build ios --no-codesign``. The built file is found at <project_home>/build/ios/iphoneos/Runner.app
 
 ### For Android
 Run ``flutter build appbundle``. The built file is found at <project_home>/build/app/outputs/bundle/release/app-release.aab
+
+### For Android [APK]
+Run ``flutter build apk``. The built file is found at <project_home>/build/app/outputs/apk/release/app-release.apk
+
