@@ -28,8 +28,12 @@ jobs:
         run: flutter pub get
       - name: Analyze Flutter project
         run: flutter analyze
-      - name: Run Flutter tests
-        run: flutter test
+      - name: Run Flutter tests with coverage
+        run: flutter test --coverage
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@v2.1.0
+        with:
+          token: {{ secrets.CODECOV_TOKEN }}
 
   build_appbundle:
     name: Build Flutter (Android)
