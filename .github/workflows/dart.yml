@@ -31,31 +31,6 @@ jobs:
       - name: Run Flutter tests
         run: flutter test
 
-  build_ios:
-    name: Build Flutter (iOS)
-    needs: [flutter_test]
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Setup Java 11
-        uses: actions/setup-java@v2.5.0
-        with:
-          distribution: 'temurin'
-          java-version: '11'
-      - name: Setup Flutter SDK
-        uses: subosito/flutter-action@v1.5.3
-      - name: Get Flutter dependencies
-        run: flutter pub get
-      - name: Clean Flutter project
-        run: flutter clean
-      - name: Build Flutter app without code sign
-        run: flutter build ios --no-codesign --release
-      - name: Upload iOS app
-        uses: actions/upload-artifact@v2.3.1
-        with: 
-          name: iOS
-          path: build/ios/iphoneos/*.app
-  
   build_appbundle:
     name: Build Flutter (Android)
     needs: [flutter_test]
