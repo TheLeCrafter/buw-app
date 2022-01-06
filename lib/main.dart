@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Plastik vermeiden App",
+      locale: Locale.fromSubtags(languageCode: "de"),
       home: HomeScreen(),
     );
   }
