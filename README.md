@@ -10,7 +10,7 @@ This is a German app made by TheLeCrafter for the Bundesumweltwettbewerb to show
 ## Building
 Install the latest Dart and Flutter version and clone this repository. If you want to disable hot reload on the connected device add the ``--release`` flag to the command.
 
-### For iOS
+### For iOS UNSUPPORTED
 Run ``flutter build ios --no-codesign``. The built file is found at <project_home>/build/ios/iphoneos/Runner.app
 
 ### For Android
