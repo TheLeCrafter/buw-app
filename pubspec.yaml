@@ -53,9 +53,6 @@ dev_dependencies:
 
 # Generate app icon
 flutter_icons:
-  ios: true
-  image_path_ios: assets/images/icon.jpg
-  remove_alpha_ios: true
   android: true
   image_path_android: assets/images/icon_no_background.png
 
