@@ -43,12 +43,10 @@ class HomeScreenState extends State<HomeScreen> {
           actions: [
             PopupMenuButton<Choice>(
               onSelected: (choice) async {
-                String url = choice.url;
-                if (await canLaunch(url)) {
-                  await launch(url);
-                } else {
-                  throw "Konnte die url $url nicht öffnen!";
-                }
+                await launch(
+                  choice.url,
+                  enableJavaScript: true,
+                );
               },
               itemBuilder: (BuildContext context) {
                 return choices.skip(0).map((Choice choice) {
