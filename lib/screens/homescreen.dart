@@ -137,6 +137,9 @@ class HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
+          const Divider(
+            thickness: 2.0,
+          ),
           Expanded(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
