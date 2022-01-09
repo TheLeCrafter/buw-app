@@ -1,9 +1,11 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:bundesumweltwettbewerbapp/choice.dart';
 import 'package:bundesumweltwettbewerbapp/networking.dart';
 import 'package:bundesumweltwettbewerbapp/post.dart';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:url_launcher/url_launcher.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -38,6 +40,29 @@ class HomeScreenState extends State<HomeScreen> {
             ),
           ),
           automaticallyImplyLeading: false,
+          actions: [
+            PopupMenuButton<Choice>(
+              onSelected: (choice) async {
+                String url = choice.url;
+                if (await canLaunch(url)) {
+                  await launch(url);
+                } else {
+                  throw "Konnte die url $url nicht öffnen!";
+                }
+              },
+              itemBuilder: (BuildContext context) {
+                return choices.skip(0).map((Choice choice) {
+                  return PopupMenuItem<Choice>(
+                    value: choice,
+                    child: ListTile(
+                      leading: Icon(choice.icon),
+                      title: Text(choice.name),
+                    ),
+                  );
+                }).toList();
+              },
+            ),
+          ],
         ),
       ),
       body: mainWidget(),
