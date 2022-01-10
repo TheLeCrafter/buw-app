@@ -10,7 +10,6 @@ import 'package:url_launcher/url_launcher.dart';
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
-
   @override
   State<StatefulWidget> createState() => HomeScreenState();
 }
@@ -171,7 +170,7 @@ class HomeScreenState extends State<HomeScreen> {
                 child: Text(
                   _post.text,
                   style: const TextStyle(
-                      fontSize: 28,
+                      fontSize: 21,
                       height: 1.1,
                       fontFamily: "Titillium",
                       color: Colors.white
