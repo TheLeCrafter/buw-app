@@ -77,7 +77,7 @@ class HomeScreenState extends State<HomeScreen> {
               final _posts = getPostsFromSnapshot(snapshot);
               return ListView.builder(
                 padding: const EdgeInsets.all(16),
-                itemCount: _posts.length,
+                itemCount: _posts.length * 2,
                 itemBuilder: (context, i) {
                   if (i.isOdd) {
                     return const Divider();
